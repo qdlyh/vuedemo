@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style type="text/css">
+	.red{
+		color: red;
+	}
+	.big{
+		font-size: 50px;
+		color: #777777;
+	}
+</style>
+<body>
+<div id="myapp">
+	<p>你最喜欢的游戏是什么:{{mygame}}</p>
+	<input type="text" v-model='mygame'>
+	<button @click="btnclick('我的世界')">我的世界</button>
+	<button @click="btnclick('我的世界2')">我的世界2</button>
+	<button @click="btnclick('我的世界3')">我的世界3</button>
+	<button @click="btnclick('我的世界4')">我的世界4</button>
+</div>
+<div id="myapp3">
+	<p>游戏的价格是:{{price}},收税价格{{priceInTax}},结合人民币{{piceChinaRMB}}</p>
+</div>
+<div id="myapp4">
+	<p>游戏的价格是:{{price4}},收税价格{{priceInTax4}},结合人民币{{piceChinaRMB4}}</p>
+	<button @click='btnclick4(10000)'>加10000</button>
+</div>
+<div id="myapp5">
+	<p :class='myclass5'>文本</p>
+	<button @click='btnclick5'>按钮</button>
+</div>
+<div id="myapp6">
+	<h1 v-if='cj == 0'>成绩未公布</h1>
+	<h1 v-else-if='cj < 60'>{{cj}}成绩不及格</h1>
+	<h1 v-else-if='cj < 80'>{{cj}}还需努力</h1>
+	<h1 v-else>{{cj}}考得不错</h1>
+	<button @click = 'btncj'>按钮</button>
+</div>
+<div id="myapp7">
+	<p v-show='show'>游戏游戏</p>
+	<button @click='btnshow'>按钮</button>
+</div>
+<div id="myapp8">
+	<ul>
+		<li v-for='(game , index) in games'>{{index+1}} {{game.title}} /价格{{game.price8}}元</li>
+	</ul>
+</div>
+<div id="myapp9">
+	<input type="checkbox" value="游戏1" v-model = 'mygame9'>
+	<label for="游戏1">游戏1</label>
+	<input type="checkbox" value="游戏2" v-model = 'mygame9'>
+	<label for="游戏2">游戏2</label>
+	<input type="checkbox" value="游戏3" v-model = 'mygame9'>
+	<label for="游戏3">游戏3</label>
+	<input type="checkbox" value="游戏4" v-model = 'mygame9'>
+	<label for="游戏4">游戏4</label>
+	<p>你选择的游戏是:{{mygame9}}</p>
+</div>
+<div id="myapp10">
+    <h3>选择性别</h3>
+	<input type="radio" value="男" v-model='picked'>
+	<label for="游戏1">男</label>
+	<input type="radio" value="女" v-model='picked'>
+	<label for="游戏2">女</label>
+	<h3>选择游戏</h3>
+	<input type="radio" value="游戏3" v-model='mygame10'>
+	<label for="游戏3">游戏3</label>
+	<input type="radio" value="游戏4" v-model='mygame10'>
+	<label for="游戏4">游戏4</label>
+	<h3>选择结果</h3>
+	<p>性别:{{picked}}</p>
+	<p>你选择的游戏是:{{mygame10}}</p>
+</div>
+<div id="app1">
+	<h3>你选择的球星是</h3>
+	<select v-model='select1' style="width: 150px;">
+		<option value="科比">科比</option>
+		<option value="科比2">科比2</option>
+		<option value="科比3">科比3</option>
+		<option value="科比4">科比4</option>
+		<option value="科比5">科比5</option>
+	</select>
+	<h3>你选择的游戏是</h3>
+	<select v-model='select2' style="width: 150px;">
+		<option value="你的世界">你的世界</option>
+		<option value="你的世界2">你的世界2</option>
+		<option value="你的世界3">你的世界3</option>
+		<option value="你的世界4">你的世界4</option>
+		<option value="你的世界5">你的世界5</option>
+	</select>
+	<h3>选择球星是</h3>
+	<p>{{select1}}</p>
+	<h3>选择游戏室</h3>
+	<p>{{select2}}</p>
+</div>
+<div id="app2">
+    <h1>用户注册</h1>
+    <div>
+	    <label for="username">用户</label>
+		<input type="text" id="username" v-model.lazy='username' @change='changename'>
+		<span v-if='changenameOK'>可注册</span>
+    </div>
+    <div>
+    	<label for="age">年龄</label>
+    	<input type="" id="age" v-model.number='age'>
+    </div>
+    <div>
+    	<label for="content">个人简介</label><br/>
+    	<textarea name="" id="content" cols="30" rows="10" v-model.trim='content'></textarea>
+    </div>
+    <h3>信息区</h3>
+    <p>{{username}}</p>
+    <p>{{age}}</p>
+    <p>{{content}}</p>
+</div>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script type="text/javascript">
+	//表单筛选符
+	var App2 = new Vue({
+		el:'#app2',
+		data:{
+			username:'',
+			changenameOK:false,
+			age:'',
+			content:''
+		},
+		methods:{
+			changename(){
+				if(this.username.length>0) this.changenameOK = true
+				else this.changenameOK = false
+
+				
+			}
+		}
+	})
+	//双向绑定下拉框
+	var App1 = new Vue({
+		el:'#app1',
+		data:{
+			select1:"",
+			select2:""
+		}
+	})
+	//双向绑定单选
+	var myApp10 = new Vue({
+		el:'#myapp10',
+		data:{
+			picked:"",
+			mygame10:"",
+		}
+	})
+	//双向绑定表单复选
+	var myApp9 = new Vue({
+		el:'#myapp9',
+		data:{
+			mygame9:[]
+		}
+	})
+	//元素循环
+	var myApp8 = new Vue({
+		el:'#myapp8',
+		data:{
+			games:[
+			{title:'你的世界',price8:500},
+			{title:'你的世界2',price8:1000},
+			{title:'你的世界3',price8:1500}
+			]
+		}
+	})
+
+	//元素显示show
+	var myApp7 = new Vue({
+		el:'#myapp7',
+		data:{
+			show:true
+		},
+		methods:{
+			btnshow(){
+				this.show = false
+			}
+		}
+	})
+	//条件判断
+	var myApp6 = new Vue({
+		el:'#myapp6',
+		data:{
+			cj:0
+		},
+		methods:{
+			btncj(){
+				this.cj = Math.round(Math.random()*100)
+			}
+		}
+	})
+	//class绑定
+	var myApp5 = new Vue({
+		el:'#myapp5',
+		data:{
+			myclass5:{
+				red:true,
+				big:true
+			}	
+		},
+		methods:{
+		     btnclick5(){
+				this.myclass5.big = false
+			}
+		}
+	})
+	//观察属性watch
+	var myApp4 = new Vue({
+		el:'#myapp4',
+		data:{
+			price4:0,
+			priceInTax4:0,
+			piceChinaRMB4:0
+		},
+		watch:{
+			price4(newVal,oldVal){
+				this.priceInTax4 = Math.round(this.price4*16.75)
+				this.piceChinaRMB4 = Math.round(this.priceInTax4/16.75)
+			}
+		},
+		methods:{
+			btnclick4(newPrice){
+				this.price4 += newPrice
+			}
+		}
+	})
+	myApp4.price4 = 20000;
+
+
+//计算属性computed
+	var myApp3 = new Vue({
+		el:'#myapp3',
+		data:{
+			price:29010
+		},
+		computed:{
+			priceInTax(){
+				return this.price*1.88;
+			},
+			piceChinaRMB(){
+				return Math.round(this.priceInTax/16.75)
+			}
+		}
+	})
+
+	//双向绑定
+		var myApp = new Vue({
+			el:'#myapp',
+			data:{
+				mygame:''
+			},
+			methods:{
+				btnclick(pname){
+                  this.mygame = pname
+				}
+			}
+		})
+	</script>
+</body>
+</html>
